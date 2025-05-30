@@ -13,17 +13,6 @@
 
 ---
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Testing](#testing)
-
----
-
 ## Overview
 
 **DrukTurf** is a comprehensive football turf booking platform designed to enhance user engagement and streamline turf management.
