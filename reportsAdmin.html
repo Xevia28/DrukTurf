@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrukTurf Admin - Reports Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#04374C',
+                        'secondary': '#04A0D3',
+                        'accent': '#00C9A7',
+                        'dark': '#121826',
+                        'turf-green': '#1DB954'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar-hover:hover {
+            background-color: rgba(4, 55, 76, 0.15);
+        }
+
+        .active-menu {
+            background-color: #04374C;
+            border-left: 4px solid #00C9A7;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1a2430;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #04374C;
+            border-radius: 10px;
+        }
+
+        .stat-card {
+            background: rgba(4, 55, 76, 0.2);
+        }
+
+        .chart-container {
+            background: rgba(4, 55, 76, 0.15);
+            border: 1px solid rgba(55, 65, 81, 0.5);
+            border-radius: 12px;
+            padding: 20px;
+            height: 100%;
+        }
+
+        .chart-card-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .bg-grid-pattern {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-gray-200 font-sans">
+    <!-- Mobile Top Bar -->
+    <div class="md:hidden bg-dark flex justify-between items-center p-4">
+        <div class="flex items-center space-x-2">
+            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <i class="fas fa-futbol text-xl"></i>
+            </div>
+            <span class="font-bold text-xl">DrukTurf</span>
+        </div>
+        <button id="mobile-menu-button" class="text-gray-400 hover:text-white">
+            <i class="fas fa-bars text-2xl"></i>
+        </button>
+    </div>
+
+    <!-- Dashboard Layout -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div id="sidebar"
+            class="bg-dark w-64 min-h-screen hidden md:flex flex-col custom-scrollbar transition-all duration-300">
+            <!-- Logo -->
+            <div class="p-6 flex items-center space-x-3">
+                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                    <i class="fas fa-futbol text-xl"></i>
+                </div>
+                <span class="font-bold text-xl">DrukTurf</span>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 px-4 py-4">
+                <ul>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
+                            <i class="fas fa-users mr-3"></i>
+                            <span>User Management</span>
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
+                            <i class="fas fa-grass mr-3"></i>
+                            <span>Turf Management</span>
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
+                            <i class="fas fa-calendar-check mr-3"></i>
+                            <span>Booking Management</span>
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover active-menu">
+                            <i class="fas fa-chart-bar mr-3"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
+                            <i class="fas fa-cog mr-3"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li class="mt-8 border-t border-gray-800 pt-4">
+                        <a href="#" class="flex items-center px-4 py-3 rounded-lg text-red-400 hover:bg-red-500/10">
+                            <i class="fas fa-sign-out-alt mr-3"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- User Profile -->
+            <div class="px-4 py-6 border-t border-gray-800">
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                        <i class="fas fa-user text-white"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold">Analytics Manager</div>
+                        <div class="text-sm text-gray-400">analytics@turfpro.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Bar -->
+            <div
+                class="bg-dark px-6 py-4 flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-800">
+                <h1 class="text-2xl font-bold">Reports Dashboard</h1>
+                <div class="flex flex-col md:flex-row mt-4 md:mt-0 w-full md:w-auto gap-3">
+                    <div class="relative w-full md:w-64">
+                        <input type="text" placeholder="Search reports..."
+                            class="w-full px-4 py-2 pl-10 bg-gray-800 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-500"></i>
+                    </div>
+                    <div class="flex gap-2">
+                        <button
+                            class="bg-gradient-to-r from-primary to-secondary py-2 px-4 rounded-lg font-semibold hover:opacity-90 transition-all flex items-center justify-center">
+                            <i class="fas fa-download mr-2"></i> Export Report
+                        </button>
+                        <button
+                            class="bg-gray-800 py-2 px-4 rounded-lg font-semibold border border-gray-700 hover:bg-gray-700 transition-all flex items-center justify-center">
+                            <i class="fas fa-sync-alt mr-2"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div
+                class="px-6 py-4 flex flex-wrap gap-4 border-b border-gray-800 bg-gradient-to-r from-gray-800 to-gray-900">
+                <div>
+                    <label class="block text-sm font-medium mb-1 text-gray-400">Time Range</label>
+                    <select id="time-range"
+                        class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 w-full md:w-44">
+                        <option value="7">Last 7 Days</option>
+                        <option value="30" selected>Last 30 Days</option>
+                        <option value="90">Last 90 Days</option>
+                        <option value="365">Last Year</option>
+                        <option value="custom">Custom Range</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1 text-gray-400">Turf Location</label>
+                    <select class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 w-full md:w-44">
+                        <option value="">All Locations</option>
+                        <option value="downtown">Downtown</option>
+                        <option value="north">North District</option>
+                        <option value="south">South District</option>
+                        <option value="west">West District</option>
+                    </select>
+                </div>
+                <div class="flex flex-col">
+                    <label class="block text-sm font-medium mb-1 text-gray-400">Custom Date</label>
+                    <div class="flex space-x-2">
+                        <input type="date" class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 w-full"
+                            disabled>
+                        <span class="self-center">to</span>
+                        <input type="date" class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 w-full"
+                            disabled>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-4 gap-4 bg-gradient-to-r from-gray-800 to-gray-900">
+                <!-- Total Revenue -->
+                <div class="stat-card rounded-xl p-4 border border-gray-700">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-400 text-sm">Total Revenue</p>
+                            <p class="text-2xl font-bold mt-1">Nu.768,562</p>
+                        </div>
+                        <div
+                            class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-purple-300 flex items-center justify-center">
+                            <i class="fas fa-dollar-sign text-white"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gray-700">
+                        <p class="text-xs text-gray-400"><span class="text-green-500"><i
+                                    class="fas fa-arrow-up mr-1"></i> 14.2%</span> from last month</p>
+                    </div>
+                </div>
+
+                <!-- Active Bookings -->
+                <div class="stat-card rounded-xl p-4 border border-gray-700">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-400 text-sm">Active Bookings</p>
+                            <p class="text-2xl font-bold mt-1">142</p>
+                        </div>
+                        <div
+                            class="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-green-400 flex items-center justify-center">
+                            <i class="fas fa-calendar-check text-white"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gray-700">
+                        <p class="text-xs text-gray-400"><span class="text-green-500"><i
+                                    class="fas fa-arrow-up mr-1"></i> 8.2%</span> from last month</p>
+                    </div>
+                </div>
+
+                <!-- Avg. Booking Value -->
+                <div class="stat-card rounded-xl p-4 border border-gray-700">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-400 text-sm">Avg. Booking Value</p>
+                            <p class="text-2xl font-bold mt-1">$82.50</p>
+                        </div>
+                        <div
+                            class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-yellow-300 flex items-center justify-center">
+                            <i class="fas fa-money-bill-wave text-white"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gray-700">
+                        <p class="text-xs text-gray-400"><span class="text-green-500"><i
+                                    class="fas fa-arrow-up mr-1"></i> 5.7%</span> from last month</p>
+                    </div>
+                </div>
+
+                <!-- Occupancy Rate -->
+                <div class="stat-card rounded-xl p-4 border border-gray-700">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-400 text-sm">Occupancy Rate</p>
+                            <p class="text-2xl font-bold mt-1">76%</p>
+                        </div>
+                        <div
+                            class="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500 to-blue-300 flex items-center justify-center">
+                            <i class="fas fa-chart-line text-white"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gray-700">
+                        <p class="text-xs text-gray-400"><span class="text-green-500"><i
+                                    class="fas fa-arrow-up mr-1"></i> 11.4%</span> from last month</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div
+                class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 overflow-y-auto custom-scrollbar bg-grid-pattern">
+                <!-- Revenue Line Chart -->
+                <div class="chart-container col-span-1 lg:col-span-2">
+                    <div class="chart-card-header flex flex-col md:flex-row md:items-center justify-between">
+                        <h3 class="text-xl font-bold">Revenue Performance</h3>
+                        <div class="mt-2 md:mt-0 flex gap-2">
+                            <button
+                                class="text-xs px-3 py-1 rounded-full bg-gray-800 border border-gray-700">Daily</button>
+                            <button class="text-xs px-3 py-1 rounded-full bg-primary text-white">Monthly</button>
+                            <button
+                                class="text-xs px-3 py-1 rounded-full bg-gray-800 border border-gray-700">Yearly</button>
+                        </div>
+                    </div>
+                    <canvas id="revenueChart" height="120"></canvas>
+                </div>
+
+                <!-- Booking Stats -->
+                <div class="chart-container">
+                    <div class="chart-card-header">
+                        <h3 class="text-xl font-bold">Booking Status</h3>
+                    </div>
+                    <canvas id="bookingPieChart"></canvas>
+                </div>
+
+                <!-- Revenue by Location -->
+                <div class="chart-container">
+                    <div class="chart-card-header">
+                        <h3 class="text-xl font-bold">Revenue by Location</h3>
+                    </div>
+                    <canvas id="locationBarChart" height="300"></canvas>
+                </div>
+
+                <!-- Peak Times -->
+                <div class="chart-container">
+                    <div class="chart-card-header">
+                        <h3 class="text-xl font-bold">Peak Booking Times</h3>
+                    </div>
+                    <canvas id="peakTimeChart" height="250"></canvas>
+                </div>
+
+                <!-- Revenue by Turf -->
+                <div class="chart-container">
+                    <div class="chart-card-header">
+                        <h3 class="text-xl font-bold">Turf Performance</h3>
+                    </div>
+                    <canvas id="turfRevenueChart" height="250"></canvas>
+                </div>
+
+                <!-- Customer Stats -->
+                <div class="chart-container">
+                    <div class="chart-card-header">
+                        <h3 class="text-xl font-bold">Customer Segmentation</h3>
+                    </div>
+                    <canvas id="customerChart" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50">
+        <div class="w-64 min-h-screen bg-dark flex flex-col">
+            <div class="p-4 flex justify-end">
+                <button id="close-menu" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <nav class="flex-1 px-4 py-4">
+                <ul>
+                    <li class="mb-2">
+                        <a href="user-management.html" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
+                            <i class="fas fa-users mr-3"></i>
+                            <span>User Management</span>
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
+                            <i class="fas fa-grass mr-3"></i>
+                            <span>Turf Management</span>
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
+                            <i class="fas fa-calendar-check mr-3"></i>
+                            <span>Booking Management</span>
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover active-menu">
+                            <i class="fas fa-chart-bar mr-3"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
+                            <i class="fas fa-cog mr-3"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li class="mt-8 border-t border-gray-800 pt-4">
+                        <a href="#" class="flex items-center px-4 py-3 rounded-lg text-red-400 hover:bg-red-500/10">
+                            <i class="fas fa-sign-out-alt mr-3"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+        });
+
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+
+        // Time range selector toggle
+        const timeRangeSelect = document.getElementById('time-range');
+        const dateInputs = document.querySelectorAll('input[type="date"]');
+
+        timeRangeSelect.addEventListener('change', function () {
+            if (this.value === 'custom') {
+                dateInputs.forEach(input => input.disabled = false);
+            } else {
+                dateInputs.forEach(input => input.disabled = true);
+            }
+        });
+
+        // Chart initialization
+        document.addEventListener('DOMContentLoaded', function () {
+            // Revenue Line Chart
+            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+            const revenueChart = new Chart(revenueCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'Revenue ($)',
+                        data: [4850, 5600, 6200, 7300, 8900, 10700, 12500],
+                        borderColor: '#04A0D3',
+                        backgroundColor: 'rgba(4, 160, 211, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#04A0D3',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return '$' + value;
+                                },
+                                color: '#A0AEC0'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#A0AEC0'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Booking Status Pie Chart
+            const bookingPieCtx = document.getElementById('bookingPieChart').getContext('2d');
+            const bookingPieChart = new Chart(bookingPieCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Confirmed', 'Completed', 'Pending', 'Cancelled'],
+                    datasets: [{
+                        data: [45, 30, 15, 10],
+                        backgroundColor: [
+                            'rgba(0, 201, 167, 0.8)',
+                            'rgba(77, 171, 247, 0.8)',
+                            'rgba(255, 193, 69, 0.8)',
+                            'rgba(255, 107, 107, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(0, 201, 167, 1)',
+                            'rgba(77, 171, 247, 1)',
+                            'rgba(255, 193, 69, 1)',
+                            'rgba(255, 107, 107, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: '#CBD5E0',
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Revenue by Location Bar Chart
+            const locationBarCtx = document.getElementById('locationBarChart').getContext('2d');
+            const locationBarChart = new Chart(locationBarCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Downtown', 'North District', 'South District', 'West District'],
+                    datasets: [{
+                        label: 'Revenue ($)',
+                        data: [12400, 8650, 5820, 3692],
+                        backgroundColor: [
+                            'rgba(29, 185, 84, 0.7)',
+                            'rgba(77, 171, 247, 0.7)',
+                            'rgba(156, 39, 176, 0.7)',
+                            'rgba(255, 152, 0, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(29, 185, 84, 1)',
+                            'rgba(77, 171, 247, 1)',
+                            'rgba(156, 39, 176, 1)',
+                            'rgba(255, 152, 0, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return '$' + value;
+                                },
+                                color: '#A0AEC0'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#A0AEC0'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Peak Time Chart
+            const peakTimeCtx = document.getElementById('peakTimeChart').getContext('2d');
+            const peakTimeChart = new Chart(peakTimeCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['8 AM', '10 AM', '12 PM', '2 PM', '4 PM', '6 PM', '8 PM', '10 PM'],
+                    datasets: [
+                        {
+                            label: 'Weekdays',
+                            data: [30, 25, 45, 60, 70, 85, 90, 45],
+                            fill: true,
+                            backgroundColor: 'rgba(4, 160, 211, 0.2)',
+                            borderColor: '#04A0D3',
+                            pointBackgroundColor: '#04A0D3',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2
+                        },
+                        {
+                            label: 'Weekends',
+                            data: [45, 60, 80, 95, 100, 98, 92, 60],
+                            fill: true,
+                            backgroundColor: 'rgba(0, 201, 167, 0.2)',
+                            borderColor: '#00C9A7',
+                            pointBackgroundColor: '#00C9A7',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#CBD5E0'
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            angleLines: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            pointLabels: {
+                                color: '#CBD5E0'
+                            },
+                            ticks: {
+                                backdropColor: 'transparent',
+                                color: '#A0AEC0'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Turf Revenue Chart
+            const turfRevenueCtx = document.getElementById('turfRevenueChart').getContext('2d');
+            const turfRevenueChart = new Chart(turfRevenueCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Field A', 'Field B', 'Field C', 'Field D', 'Field E'],
+                    datasets: [
+                        {
+                            label: 'Revenue ($)',
+                            data: [5200, 4250, 6320, 3140, 4870],
+                            backgroundColor: 'rgba(67, 56, 202, 0.7)',
+                            borderColor: 'rgba(79, 70, 229, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Occupancy (%)',
+                            data: [68, 52, 78, 45, 62],
+                            backgroundColor: 'rgba(236, 72, 153, 0.7)',
+                            borderColor: 'rgba(219, 39, 119, 1)',
+                            borderWidth: 1,
+                            type: 'line',
+                            yAxisID: 'y1',
+                            fill: false,
+                            pointBackgroundColor: 'rgba(236, 72, 153, 1)',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return '$' + value;
+                                },
+                                color: '#A0AEC0'
+                            }
+                        },
+                        y1: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                display: false
+                            },
+                            position: 'right',
+                            ticks: {
+                                callback: function (value) {
+                                    return value + '%';
+                                },
+                                color: '#A0AEC0'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#A0AEC0'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#CBD5E0'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Customer Chart
+            const customerCtx = document.getElementById('customerChart').getContext('2d');
+            const customerChart = new Chart(customerCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['New Customers', 'Returning Customers', 'Premium Members'],
+                    datasets: [{
+                        data: [35, 50, 15],
+                        backgroundColor: [
+                            'rgba(239, 68, 68, 0.8)',
+                            'rgba(59, 130, 246, 0.8)',
+                            'rgba(245, 158, 11, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(239, 68, 68, 1)',
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(245, 158, 11, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: '#CBD5E0',
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return context.label + ': ' + context.parsed + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

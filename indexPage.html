@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrukTurf - Book Football Turfs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+    <script src="tailwind.config.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #09141A;
+            color: #FFFFFF;
+            overflow-x: hidden;
+        }
+
+        .glow-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .glow-button:before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00FFA3, #04374C, #0CE8B7, #04374C);
+            background-size: 400%;
+            z-index: -1;
+            border-radius: inherit;
+            animation: glow 3s ease infinite;
+            filter: blur(4px);
+        }
+
+        @keyframes glow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .hero-bg {
+            background: radial-gradient(ellipse at 90% 10%, #04374C 0%, #09141A 60%);
+        }
+
+        .turf-icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #04374C, #00A2B8);
+            border-radius: 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 16px rgba(0, 255, 163, 0.2);
+        }
+
+        .booking-mockup {
+            background: linear-gradient(145deg, #04374C, #0C3B51);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            transform: perspective(1000px) rotateY(-5deg);
+            border: 1px solid rgba(0, 255, 163, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking-mockup::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(0, 255, 163, 0.1) 0%, transparent 70%);
+        }
+
+        .scroll-button {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .stagger {
+            animation: stagger 0.5s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes stagger {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <img height="80" width="80" src="logo.png" alt="logo img">
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-white bg-primary">Home</a>
+                            <a href="turfsPage.html"
+                                class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800">Turfs</a>
+                            <a href="bookingsPage.html"
+                                class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800">Bookings</a>
+                            <a href="contactPage.html"
+                                class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800">Contact</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-4 flex items-center md:ml-6">
+                        <a href="login.html">
+                            <button
+                                class="glow-btn px-4 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-r from-secondary to-accent">
+                                <i class="fas fa-user mr-2"></i>Sign In
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" id="mobile-menu-btn"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-white bg-primary w-full">Home</a>
+                <a href="turfsPage.html"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Turfs</a>
+                <a href="bookingsPage.html"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Bookings</a>
+                <a href="contactPage.html"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Contact</a>
+                <a href="login.html">
+                    <button
+                        class="mt-4 w-full glow-btn px-4 py-2 rounded-md text-base font-medium text-white bg-gradient-to-r from-secondary to-accent">
+                        Sign In
+                    </button>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg min-h-screen pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center">
+            <!-- Text Content -->
+            <div class="lg:w-1/2 space-y-8 mb-16 lg:mb-0">
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight stagger delay-100">
+                    Book Your Game, <br>
+                    <span class="text-accent bg-gradient-to-r from-accent to-teal-300 text-transparent bg-clip-text">
+                        Anytime, Anywhere
+                    </span>
+                </h1>
+
+                <p class="text-xl text-gray-300 stagger delay-200">
+                    Find, book, and manage football turfs effortlessly with our intuitive platform designed for players
+                    and turf owners alike.
+                </p>
+
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 stagger delay-300">
+                    <a href="turfsPage.html">
+                        <button
+                            class="bg-gradient-to-r from-accent to-teal-500 hover:from-teal-400 hover:to-accent text-dark font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg shadow-[#00ffa333] hover:shadow-[#00ffa366] transform hover:-translate-y-1">
+                            Book a Turf
+                        </button>
+                    </a>
+                    <a href="contactPage.html#faq">
+                        <button
+                            class="border-2 border-gray-600 hover:border-accent text-gray-300 hover:text-white font-bold py-4 px-8 rounded-xl transition-all duration-300">
+                            See How It Works
+                        </button>
+                    </a>
+                </div>
+
+                <!-- Trust Strip -->
+                <div class="mt-16 flex flex-col sm:flex-row items-start sm:items-center stagger delay-400">
+                    <div class="flex -space-x-3 mb-4 sm:mb-0">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500"></div>
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500"></div>
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500"></div>
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-500"></div>
+                        <div
+                            class="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-900 text-gray-300">
+                            +5K
+                        </div>
+                    </div>
+
+                    <div class="sm:ml-6">
+                        <p class="text-lg">
+                            <span class="text-white font-semibold">Trusted by 200+ players</span>
+                            <span class="mx-3">•</span>
+                            <span class="text-accent font-bold">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                4.8/5
+                            </span>
+                        </p>
+                        <p class="text-gray-400 text-sm mt-1">Rated by turf managers and players nationwide</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Mockup -->
+            <div class="lg:w-1/2 flex justify-center stagger delay-500">
+                <div class="booking-mockup w-full max-w-lg p-6 pb-0">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-bold text-gray-200">Turf Booking Calendar</h3>
+                        <div class="bg-primary rounded-lg px-3 py-1 text-accent text-sm">Today</div>
+                    </div>
+
+                    <!-- Calendar UI -->
+                    <div class="bg-[#0C2630] rounded-xl p-4">
+                        <!-- Calendar Header -->
+                        <div class="grid grid-cols-7 gap-2 mb-4">
+                            <div class="text-center text-gray-500 text-sm font-medium">S</div>
+                            <div class="text-center text-gray-500 text-sm font-medium">M</div>
+                            <div class="text-center text-gray-500 text-sm font-medium">T</div>
+                            <div class="text-center text-gray-500 text-sm font-medium">W</div>
+                            <div class="text-center text-gray-500 text-sm font-medium">T</div>
+                            <div class="text-center text-gray-500 text-sm font-medium">F</div>
+                            <div class="text-center text-gray-500 text-sm font-medium">S</div>
+                        </div>
+
+                        <!-- Calendar Dates -->
+                        <div class="grid grid-cols-7 gap-2">
+                            <div class="text-center text-gray-500 p-2">25</div>
+                            <div class="text-center text-gray-500 p-2">26</div>
+                            <div class="text-center text-gray-500 p-2">27</div>
+                            <div class="text-center text-gray-500 p-2">28</div>
+                            <div class="text-center text-gray-500 p-2">29</div>
+                            <div class="text-center text-gray-500 p-2">30</div>
+                            <div
+                                class="text-center text-gray-200 bg-gradient-to-b from-primary to-teal-900 rounded-lg p-2">
+                                1</div>
+                            <div class="text-center text-gray-200 p-2">2</div>
+                            <div class="text-center text-gray-200 p-2">3</div>
+                            <div class="text-center text-gray-200 p-2">4</div>
+                            <div class="text-center text-gray-200 p-2">5</div>
+                            <div class="text-center text-gray-200 bg-accent text-dark rounded-lg font-bold p-2">6</div>
+                            <div class="text-center text-gray-200 p-2">7</div>
+                            <div class="text-center text-gray-200 p-2">8</div>
+                            <div class="text-center text-gray-200 p-2">9</div>
+                            <div class="text-center text-gray-200 p-2">10</div>
+                            <div class="text-center text-gray-200 p-2">11</div>
+                            <div class="text-center text-gray-200 p-2">12</div>
+                            <div class="text-center text-gray-200 p-2">13</div>
+                            <div class="text-center text-gray-200 p-2">14</div>
+                            <div class="text-center text-gray-200 p-2">15</div>
+                            <div class="text-center text-gray-200 p-2">16</div>
+                            <div class="text-center text-gray-200 p-2">17</div>
+                            <div class="text-center text-gray-200 p-2">18</div>
+                            <div class="text-center text-gray-200 p-2">19</div>
+                            <div class="text-center text-gray-200 p-2">20</div>
+                            <div class="text-center text-gray-200 p-2">21</div>
+                            <div class="text-center text-gray-200 p-2">22</div>
+                            <div class="text-center text-gray-200 p-2">23</div>
+                            <div class="text-center text-gray-200 p-2">24</div>
+                            <div class="text-center text-gray-200 p-2">25</div>
+                            <div class="text-center text-gray-200 p-2">26</div>
+                            <div class="text-center text-gray-200 p-2">27</div>
+                        </div>
+                    </div>
+
+                    <!-- Turf Selection -->
+                    <div class="mt-6 grid grid-cols-3 gap-4 mb-6">
+                        <div class="bg-primary rounded-lg p-3 flex flex-col items-center">
+                            <div class="text-xs text-gray-400">Turf 1</div>
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-accent to-teal-500 my-1"></div>
+                            <div class="text-xs text-gray-300">Available</div>
+                        </div>
+                        <div class="bg-primary rounded-lg p-3 flex flex-col items-center">
+                            <div class="text-xs text-gray-400">Turf 2</div>
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-orange-400 to-red-500 my-1"></div>
+                            <div class="text-xs text-gray-300">Booked</div>
+                        </div>
+                        <div class="bg-primary rounded-lg p-3 flex flex-col items-center">
+                            <div class="text-xs text-gray-400">Turf 3</div>
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-accent to-teal-500 my-1"></div>
+                            <div class="text-xs text-gray-300">Available</div>
+                        </div>
+                    </div>
+
+                    <div class="text-center text-gray-500 text-sm pb-4">Select a date and turf to book your game</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <!-- <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center">
+            <span class="text-gray-400 mb-2">Explore Turfs</span>
+            <div class="scroll-button w-10 h-10 rounded-full border-2 border-gray-600 flex items-center justify-center">
+                <i class="fas fa-chevron-down text-gray-400"></i>
+            </div>
+        </div> -->
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold">Why Choose <span class="text-accent">DrukTurf?</span></h2>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Experience the future of turf booking with our
+                    cutting-edge platform</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Feature 1 -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="turf-icon">
+                        <i class="fas fa-search-location text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Find Turfs Instantly</h3>
+                    <p class="text-gray-400">Discover nearby turfs with real-time availability and advanced filtering
+                        options</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="turf-icon">
+                        <i class="fas fa-calendar-check text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Easy Booking</h3>
+                    <p class="text-gray-400">Book your preferred slot with just a few taps. Receive instant confirmation
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="turf-icon">
+                        <i class="fas fa-wallet text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Secure Payment</h3>
+                    <p class="text-gray-400">Multiple payment options with bank-grade security to protect your
+                        transactions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="bg-gradient-to-r from-primary to-dark py-16 px-6">
+        <div
+            class="max-w-5xl mx-auto rounded-2xl p-8 md:p-16 bg-gradient-to-r from-[#05405a] to-[#0c3b51] flex flex-col items-center text-center">
+            <h2 class="text-2xl md:text-4xl font-bold mb-6">Ready to Score Your Next Game?</h2>
+            <p class="text-gray-300 mb-8 max-w-2xl">Join thousands of players and turf owners who are already
+                experiencing seamless turf booking</p>
+            <a href="signup.html">
+                <button
+                    class="bg-gradient-to-r from-accent to-teal-500 hover:from-teal-400 hover:to-accent text-dark font-bold py-4 px-12 rounded-xl transition-all duration-300 shadow-lg shadow-[#00ffa333] hover:shadow-[#00ffa366] transform hover:-translate-y-1 text-lg">
+                    Get Started Now
+                </button>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-1">
+                    <h3 class="text-2xl font-bold text-white">
+                        <span class="text-secondary">Turf</span>Zone
+                    </h3>
+                    <p class="mt-4 text-gray-400">
+                        Booking football turfs made simple and efficient for players and turf owners alike.
+                    </p>
+                    <div class="mt-4 flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-white">Quick Links</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Turfs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Bookings</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQs</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-white">For Turf Owners</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="signup.html" class="text-gray-400 hover:text-white">List Your Turf</a></li>
+                        <li><a href="signup.html" class="text-gray-400 hover:text-white">Pricing</a></li>
+                        <li><a href="signup.html" class="text-gray-400 hover:text-white">Dashboard Demo</a></li>
+                        <li><a href="signup.html" class="text-gray-400 hover:text-white">Success Stories</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-white">Get In Touch</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-secondary mt-1 mr-2"></i>
+                            <span class="text-gray-400">GCIT Kabesa, Thimphu, Bhutan</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone text-secondary mr-2"></i>
+                            <span class="text-gray-400">+975 17813212</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-secondary mr-2"></i>
+                            <span class="text-gray-400">xeviabcd28@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between">
+                <p class="text-gray-400">© 2025 DrukTurf. All rights reserved.</p>
+                <div class="mt-4 md:mt-0 flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">Terms</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Privacy</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+
+            if (!menu.classList.contains('hidden')) {
+                menu.classList.add('block');
+            }
+        });
+
+        // Simple booking system interactions
+        document.querySelectorAll('.calendar-day').forEach(day => {
+            day.addEventListener('click', function () {
+                document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        document.querySelectorAll('.available-slot').forEach(slot => {
+            slot.addEventListener('click', function () {
+                document.querySelectorAll('.available-slot').forEach(s => s.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        document.querySelectorAll('.map-point').forEach(point => {
+            point.addEventListener('click', function () {
+                document.querySelectorAll('.map-point').forEach(p => p.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+
+</html>

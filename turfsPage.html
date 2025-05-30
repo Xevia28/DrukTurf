@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrukTurf - Discover Football Turfs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+    <script src="tailwind.config.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A;
+            color: #E2E8F0;
+        }
+
+        .search-filters {
+            background: rgba(4, 55, 76, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid #1E293B;
+        }
+
+        .hero-bg {
+            background: linear-gradient(rgba(4, 55, 76, 0.9), rgba(4, 55, 76, 0.9)),
+                url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .turf-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(4, 55, 76, 0.2) 0%, rgba(15, 23, 42, 0.4) 100%);
+            border: 1px solid #1E293B;
+        }
+
+        .turf-card:hover {
+            transform: translateY(-5px);
+            border-color: #06B6D4;
+            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.1);
+        }
+
+        .slot-indicator {
+            position: relative;
+        }
+
+        .slot-indicator:after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #10B981;
+        }
+
+        .slot-indicator.soon:after {
+            background-color: #F59E0B;
+        }
+
+        .slot-indicator.limited:after {
+            background-color: #EF4444;
+        }
+
+        .time-slot {
+            border: 1px solid #1E293B;
+            transition: all 0.2s ease;
+        }
+
+        .time-slot:hover {
+            background-color: #04374C;
+            border-color: #06B6D4;
+            transform: translateY(-2px);
+        }
+
+        .time-slot.selected {
+            background-color: #06B6D4;
+            color: #0F172A;
+            border-color: #06B6D4;
+        }
+
+        .map-container {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(135deg, #04374C 0%, #0F172A 100%);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .map-pointer {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50% 50% 50% 0;
+            background: #06B6D4;
+            transform: rotate(-45deg) translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.7);
+        }
+
+        .map-pointer:after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .map-pointer.premium:after {
+            background: #F59E0B;
+        }
+
+        .glow-btn {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .glow-btn:hover {
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.8);
+        }
+
+        .nav-glow {
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .nav-glow:hover {
+            text-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0F172A;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #04374C;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06B6D4;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <img height="80" width="80" src="logo.png" alt="logo img">
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="indexPage.html"
+                                class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800">Home</a>
+                            <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-white bg-primary">Turfs</a>
+                            <a href="bookingsPage.html"
+                                class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800">Bookings</a>
+                            <a href="contactPage.html"
+                                class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800">Contact</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-4 flex items-center md:ml-6">
+                        <a href="login.html">
+                            <button
+                                class="glow-btn px-4 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-r from-secondary to-accent">
+                                <i class="fas fa-user mr-2"></i>Sign In
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" id="mobile-menu-btn"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="indexPage.html"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Home</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-primary">Turfs</a>
+                <a href="bookingsPage.html"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Bookings</a>
+                <a href="contactPage.html"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Contact</a>
+                <a href="login.html">
+                    <button
+                        class="mt-4 w-full glow-btn px-4 py-2 rounded-md text-base font-medium text-white bg-gradient-to-r from-secondary to-accent">
+                        Sign In
+                    </button>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-bg relative overflow-hidden">
+        <div class="max-w-7xl mx-auto py-16 sm:py-20 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
+                    <span class="block">Discover Premium</span>
+                    <span
+                        class="block text-transparent bg-clip-text bg-gradient-to-r from-secondary to-accent mt-2">Football
+                        Turfs</span>
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-300">
+                    Find and book the perfect turf for your next match with real-time availability
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search & Filters Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div class="search-filters rounded-2xl p-6 mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+                <div class="md:col-span-4">
+                    <label for="dzongkhag" class="block text-sm font-medium text-gray-300 mb-1">Dzongkhag</label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-map-marker-alt text-gray-500"></i>
+                        </div>
+                        <select name="dzongkhag" id="dzongkhag"
+                            class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-secondary focus:border-secondary block w-full pl-10 p-2.5">
+                            <option value="all">All</option>
+                            <option value="Bumthang">Bumthang</option>
+                            <option value="Chhukha">Chhukha</option>
+                            <option value="Dagana">Dagana</option>
+                            <option value="Gasa">Gasa</option>
+                            <option value="Haa">Haa</option>
+                            <option value="Lhuentse">Lhuentse</option>
+                            <option value="Mongar">Mongar</option>
+                            <option value="Paro">Paro</option>
+                            <option value="Pemagatshel">Pemagatshel</option>
+                            <option value="Punakha">Punakha</option>
+                            <option value="Samdrup Jongkhar">Samdrup Jongkhar</option>
+                            <option value="Samtse">Samtse</option>
+                            <option value="Sarpang">Sarpang</option>
+                            <option value="Thimphu">Thimphu</option>
+                            <option value="Trashigang">Trashigang</option>
+                            <option value="Trashiyangtse">Trashiyangtse</option>
+                            <option value="Trongsa">Trongsa</option>
+                            <option value="Tsirang">Tsirang</option>
+                            <option value="Wangdue Phodrang">Wangdue Phodrang</option>
+                            <option value="Zhemgang">Zhemgang</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="md:col-span-3">
+                    <label for="date" class="block text-sm font-medium text-gray-300 mb-1">Booking Date</label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-calendar text-gray-500"></i>
+                        </div>
+                        <input type="date" name="date" id="date"
+                            class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-secondary focus:border-secondary block w-full pl-10 p-2.5"
+                            placeholder="Select date">
+                    </div>
+                </div>
+
+                <div class="md:col-span-3">
+                    <label for="time" class="block text-sm font-medium text-gray-300 mb-1">Time Slot</label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-clock text-gray-500"></i>
+                        </div>
+                        <select id="time" name="time"
+                            class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-secondary focus:border-secondary block w-full pl-10 p-2.5">
+                            <option>Anytime</option>
+                            <option selected>Evening (5-10 PM)</option>
+                            <option>Afternoon (12-5 PM)</option>
+                            <option>Morning (6-11 AM)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2">
+                    <button type="button"
+                        class="w-full glow-btn px-4 py-2 rounded-md text-white bg-gradient-to-r from-secondary to-accent font-medium">
+                        <i class="fas fa-search mr-2"></i> Search
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-6 flex flex-wrap gap-2">
+                <span class="text-sm font-medium text-gray-300 mr-2">Filters:</span>
+                <button type="button" class="px-3 py-1 bg-gray-800 text-white text-sm rounded-full flex items-center">
+                    <span>Turf Size: 7v7</span>
+                    <i class="fas fa-times ml-2 text-gray-400"></i>
+                </button>
+                <button type="button" class="px-3 py-1 bg-gray-800 text-white text-sm rounded-full flex items-center">
+                    <span>Artificial Grass</span>
+                    <i class="fas fa-times ml-2 text-gray-400"></i>
+                </button>
+                <button type="button" class="px-3 py-1 bg-gray-800 text-white text-sm rounded-full flex items-center">
+                    <span>Less than Nu.940/hr</span>
+                    <i class="fas fa-times ml-2 text-gray-400"></i>
+                </button>
+                <button type="button" class="px-3 py-1 bg-secondary text-white text-sm rounded-full font-medium">
+                    <i class="fas fa-plus mr-1"></i> Add Filter
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Turfs Listing -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Turfs List -->
+            <div class="lg:w-2/3">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-white">12 Turfs Available</h2>
+                    <div class="flex items-center text-sm">
+                        <span class="text-gray-400 mr-2">Sort by:</span>
+                        <select
+                            class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-secondary block px-3 py-1.5">
+                            <option>Recommended</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Rating</option>
+                            <option>Distance</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-6">
+                    <!-- Turf Card 1 -->
+                    <div class="turf-card rounded-2xl overflow-hidden">
+                        <div class="md:flex">
+                            <div class="md:w-2/5 relative">
+                                <img src="ground_1.jpg" alt="Changjiji Turf"
+                                    class="w-full h-full object-cover max-h-60 md:max-h-full">
+                                <div
+                                    class="absolute top-3 left-3 bg-dark bg-opacity-80 px-3 py-1 rounded-full text-white text-sm font-medium">
+                                    <i class="fas fa-star text-yellow-400 mr-1"></i> 4.8
+                                </div>
+                                <div
+                                    class="absolute top-3 right-3 bg-primary px-3 py-1 rounded-full text-white text-sm">
+                                    Nu.765/hr
+                                </div>
+                            </div>
+                            <div class="p-6 md:w-3/5">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-white">Changjiji Football Arena</h3>
+                                        <div class="flex items-center text-gray-400 mt-1">
+                                            <i class="fas fa-map-marker-alt text-secondary mr-2"></i>
+                                            <span>Changjiji Thimphu, 1.2km away</span>
+                                        </div>
+                                    </div>
+                                    <button class="text-gray-400 hover:text-white">
+                                        <i class="far fa-heart text-xl"></i>
+                                    </button>
+                                </div>
+
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300">7v7</span>
+                                    <span class="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300">Artificial
+                                        Grass</span>
+                                    <span
+                                        class="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300">Floodlights</span>
+                                    <span
+                                        class="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300">Parking</span>
+                                </div>
+
+                                <div class="mt-4 border-t border-gray-800 pt-4">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <h4 class="font-medium text-white">Today's Availability</h4>
+                                        <div class="text-sm">
+                                            <span class="text-gray-400 mr-2">Showing 5 slots</span>
+                                            <button class="text-secondary">View All</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-5 gap-2">
+                                        <div class="time-slot slot-indicator text-center py-2 rounded cursor-pointer">
+                                            <div class="text-xs text-gray-400">5:00 PM</div>
+                                            <div class="text-sm font-medium text-white">Nu.765</div>
+                                        </div>
+                                        <div class="time-slot slot-indicator text-center py-2 rounded cursor-pointer">
+                                            <div class="text-xs text-gray-400">6:00 PM</div>
+                                            <div class="text-sm font-medium text-white">Nu.768</div>
+                                        </div>
+                                        <div
+                                            class="time-slot slot-indicator limited text-center py-2 rounded cursor-pointer">
+                                            <div class="text-xs text-gray-400">7:00 PM</div>
+                                            <div class="text-sm font-medium text-white">Nu.940</div>
+                                        </div>
+                                        <div class="time-slot slot-indicator text-center py-2 rounded cursor-pointer">
+                                            <div class="text-xs text-gray-400">8:00 PM</div>
+                                            <div class="text-sm font-medium text-white">Nu.940</div>
+                                        </div>
+                                        <div
+                                            class="time-slot slot-indicator soon text-center py-2 rounded cursor-pointer">
+                                            <div class="text-xs text-gray-400">9:00 PM</div>
+                                            <div class="text-sm font-medium text-white">Nu.765</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 flex gap-3">
+                                    <button
+                                        class="flex-1 bg-gray-800 hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition">
+                                        <i class="fas fa-info-circle mr-2"></i> Details
+                                    </button>
+                                    <button
+                                        class="flex-1 glow-btn bg-gradient-to-r from-secondary to-accent text-white py-2 px-4 rounded-lg transition">
+                                        <i class="fas fa-ticket-alt mr-2"></i> Book Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Turf Card 2 -->
+                    <div class="turf-card rounded-2xl overflow-hidden">
+                        <div class="md:flex">
+                            <div class="md:w-2/5 relative">
+                                <img src="ground_2.jpg" alt="Babesa Football Arena"
+                                    class="w-full h-full object-cover max-h-60 md:max-h-full">
+                                <div
+                                    class="absolute top-3 left-3 bg-dark bg-opacity-80 px-3 py-1 rounded-full text-white text-sm font-medium">
+                                    <i class="fas fa-star text-yellow-400 mr-1"></i> 4.9
+                                </div>
+                                <div
+                                    class="absolute top-3 right-3 bg-primary px-3 py-1 rounded-full text-white text-sm">
+                                    Nu.942/hr
+                                </div>
+                            </div>
+                            <div class="p-6 md:w-3/5">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-white">Babesa Football Arena</h3>
+                                        <div class="flex items-center text-gray-400 mt-1">
+                                            <i class="fas fa-map-marker-alt text-secondary mr-2"></i>
+                                            <span>Babesa Thimphu, 2.5km away</span>
+                                        </div>
+                                    </div>
+                                    <button class="text-secondary">
+                                        <i class="fas fa-heart text-xl"></i>
+                                    </button>
+                                </div>
+
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300">11v11</span>
+                                    <span class="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300">Natural
+                                        Grass</span>
+                                    <span class="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300">VIP
+                                        Lounge</span>
+                                    <span
+                                        class="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300">Cafeteria</span>
+                                </div>
+
+                                <div class="mt-4 border-t border-gray-800 pt-4">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <h4 class="font-medium text-white">Today's Availability</h4>
+                                        <div class="text-sm">
+                                            <span class="text-gray-400 mr-2">Showing 3 slots</span>
+                                            <button class="text-secondary">View All</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-5 gap-2">
+                                        <div class="time-slot slot-indicator text-center py-2 rounded cursor-pointer">
+                                            <div class="text-xs text-gray-400">6:30 PM</div>
+                                            <div class="text-sm font-medium text-white">Nu.940</div>
+                                        </div>
+                                        <div
+                                            class="time-slot slot-indicator limited text-center py-2 rounded cursor-pointer">
+                                            <div class="text-xs text-gray-400">7:30 PM</div>
+                                            <div class="text-sm font-medium text-white">Nu.945</div>
+                                        </div>
+                                        <div class="time-slot slot-indicator text-center py-2 rounded cursor-pointer">
+                                            <div class="text-xs text-gray-400">8:30 PM</div>
+                                            <div class="text-sm font-medium text-white">$40</div>
+                                        </div>
+                                        <div class="bg-gray-800 text-center py-2 rounded cursor-not-allowed opacity-50">
+                                            <div class="text-xs text-gray-400">9:30 PM</div>
+                                            <div class="text-sm font-medium text-gray-400">Booked</div>
+                                        </div>
+                                        <div class="bg-gray-800 text-center py-2 rounded cursor-not-allowed opacity-50">
+                                            <div class="text-xs text-gray-400">10:30 PM</div>
+                                            <div class="text-sm font-medium text-gray-400">Booked</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 flex gap-3">
+                                    <button
+                                        class="flex-1 bg-gray-800 hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition">
+                                        <i class="fas fa-info-circle mr-2"></i> Details
+                                    </button>
+                                    <button
+                                        class="flex-1 glow-btn bg-gradient-to-r from-secondary to-accent text-white py-2 px-4 rounded-lg transition">
+                                        <i class="fas fa-ticket-alt mr-2"></i> Book Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Turf Card 3 -->
+                    <div class="turf-card rounded-2xl overflow-hidden">
+                        <div class="md:flex">
+                            <div class="md:w-2/5 relative">
+                                <img src="ground_3.jpg" alt="Babena Football Stadium"
+                                    class="w-full h-full object-cover max-h-60 md:max-h-full">
+                                <div
+                                    class="absolute top-3 left-3 bg-dark bg-opacity-80 px-3 py-1 rounded-full text-white text-sm font-medium">
+                                    <i class="fas fa-star text-yellow-400 mr-1"></i> 4.7
+                                </div>
+                                <div
+                                    class="absolute top-3 right-3 bg-primary px-3 py-1 rounded-full text-white text-sm">
+                                    Nu.762/hr
+                                </div>
+                            </div>
+                            <div class="p-6 md:w-3/5">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-white">Babena Football Stadium</h3>
+                                        <div class="flex items-center text-gray-400 mt-1">
+                                            <i class="fas fa-map-marker-alt text-secondary mr-2"></i>
+                                            <span>Babena Thimphu, 4.1km away</span>
+                                        </div>
+                                    </div>
+                                    <button class="text-gray-400 hover:text-white">
+                                        <i class="far fa-heart text-xl"></i>
+                                    </button>
+                                </div>
+
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300">5v5</span>
+                                    <span class="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300">Hybrid
+                                        Turf</span>
+                                    <span class="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300">Changing
+                                        Rooms</span>
+                                    <span class="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300">Training
+                                        Gear</span>
+                                </div>
+
+                                <div class="mt-4 border-t border-gray-800 pt-4">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <h4 class="font-medium text-white">Today's Availability</h4>
+                                        <div class="text-sm">
+                                            <span class="text-gray-400 mr-2">Showing 4 slots</span>
+                                            <button class="text-secondary">View All</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-5 gap-2">
+                                        <div class="time-slot slot-indicator text-center py-2 rounded cursor-pointer">
+                                            <div class="text-xs text-gray-400">5:30 PM</div>
+                                            <div class="text-sm font-medium text-white">Nu.762</div>
+                                        </div>
+                                        <div class="bg-gray-800 text-center py-2 rounded cursor-not-allowed opacity-50">
+                                            <div class="text-xs text-gray-400">6:30 PM</div>
+                                            <div class="text-sm font-medium text-gray-400">Booked</div>
+                                        </div>
+                                        <div class="time-slot slot-indicator text-center py-2 rounded cursor-pointer">
+                                            <div class="text-xs text-gray-400">7:30 PM</div>
+                                            <div class="text-sm font-medium text-white">Nu.765</div>
+                                        </div>
+                                        <div
+                                            class="time-slot slot-indicator soon text-center py-2 rounded cursor-pointer">
+                                            <div class="text-xs text-gray-400">8:30 PM</div>
+                                            <div class="text-sm font-medium text-white">Nu.768</div>
+                                        </div>
+                                        <div
+                                            class="time-slot slot-indicator limited text-center py-2 rounded cursor-pointer">
+                                            <div class="text-xs text-gray-400">9:30 PM</div>
+                                            <div class="text-sm font-medium text-white">Nu.762</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 flex gap-3">
+                                    <button
+                                        class="flex-1 bg-gray-800 hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition">
+                                        <i class="fas fa-info-circle mr-2"></i> Details
+                                    </button>
+                                    <button
+                                        class="flex-1 glow-btn bg-gradient-to-r from-secondary to-accent text-white py-2 px-4 rounded-lg transition">
+                                        <i class="fas fa-ticket-alt mr-2"></i> Book Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-center">
+                    <button
+                        class="bg-gray-800 hover:bg-gray-700 px-6 py-3 text-white font-medium rounded-lg transition flex items-center">
+                        <i class="fas fa-sync-alt mr-2"></i> Load More Turfs
+                    </button>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div class="lg:w-1/3">
+                <div class="sticky top-24">
+                    <div class="map-container">
+                        <div class="map-pointer" style="top: 30%; left: 40%;"></div>
+                        <div class="map-pointer premium" style="top: 65%; left: 70%;"></div>
+                        <div class="map-pointer" style="top: 55%; left: 30%;"></div>
+
+                        <div class="absolute bottom-4 left-4 bg-dark bg-opacity-80 rounded-lg p-4 max-w-xs">
+                            <h3 class="text-lg font-bold text-white mb-2">Turfs Nearby</h3>
+                            <div class="space-y-2">
+                                <div class="flex items-center">
+                                    <div class="w-2 h-2 rounded-full bg-secondary mr-3"></div>
+                                    <div>
+                                        <div class="text-white font-medium">Changjiji Arena</div>
+                                        <div class="text-gray-300 text-sm">1.2km • Nu.765/hr</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-2 h-2 rounded-full bg-yellow-500 mr-3"></div>
+                                    <div>
+                                        <div class="text-white font-medium">Babesa Football Arena</div>
+                                        <div class="text-gray-300 text-sm">2.5km • Nu.942/hr</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-2 h-2 rounded-full bg-secondary mr-3"></div>
+                                    <div>
+                                        <div class="text-white font-medium">Babena Football Stadium</div>
+                                        <div class="text-gray-300 text-sm">4.1km • Nu.762/hr</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 rounded-2xl bg-gray-900 p-6">
+                        <h3 class="text-lg font-bold text-white mb-4">Popular Times</h3>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-400">Monday</span>
+                            <div class="w-1/2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-secondary" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-400">Tuesday</span>
+                            <div class="w-1/2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-secondary" style="width: 50%"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-400">Wednesday</span>
+                            <div class="w-1/2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-secondary" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-400">Thursday</span>
+                            <div class="w-1/2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-secondary" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-400">Friday</span>
+                            <div class="w-1/2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-secondary" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-400">Saturday</span>
+                            <div class="w-1/2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-secondary" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-400">Sunday</span>
+                            <div class="w-1/2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-secondary" style="width: 80%"></div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-3 bg-primary rounded-lg text-sm text-gray-300">
+                            <i class="fas fa-info-circle mr-2 text-secondary"></i>
+                            Weekend evenings are the most popular. Book early to secure your slot.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-1">
+                    <h3 class="text-2xl font-bold text-white">
+                        <span class="text-secondary">Turf</span>Zone
+                    </h3>
+                    <p class="mt-4 text-gray-400">
+                        Booking football turfs made simple and efficient for players and turf owners alike.
+                    </p>
+                    <div class="mt-4 flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-white">Quick Links</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="turfs.html" class="text-gray-400 hover:text-white">Turfs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Bookings</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQs</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-white">For Turf Owners</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="signup.html" class="text-gray-400 hover:text-white">List Your Turf</a></li>
+                        <li><a href="signup.html" class="text-gray-400 hover:text-white">Pricing</a></li>
+                        <li><a href="signup.html" class="text-gray-400 hover:text-white">Dashboard Demo</a></li>
+                        <li><a href="signup.html" class="text-gray-400 hover:text-white">Success Stories</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-white">Get In Touch</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-secondary mt-1 mr-2"></i>
+                            <span class="text-gray-400">GCIT Kabesa, Thimphu, Bhutan</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone text-secondary mr-2"></i>
+                            <span class="text-gray-400">+975 17813212</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-secondary mr-2"></i>
+                            <span class="text-gray-400">xeviabcd28@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between">
+                <p class="text-gray-400">© 2025 DrukTurf. All rights reserved.</p>
+                <div class="mt-4 md:mt-0 flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">Terms</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Privacy</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+
+            if (!menu.classList.contains('hidden')) {
+                menu.classList.add('block');
+            }
+        });
+
+        // Time slot selection
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            slot.addEventListener('click', function () {
+                if (!this.classList.contains('selected')) {
+                    // Remove selected from all slots
+                    document.querySelectorAll('.time-slot').forEach(s => {
+                        s.classList.remove('selected');
+                        s.classList.remove('bg-secondary');
+                    });
+
+                    // Add selected to current slot
+                    this.classList.add('selected');
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

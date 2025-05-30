@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrukTurf - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+    <script src="tailwind.config.js"></script>
+    <style>
+        .login-bg {
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(4, 55, 76, 0.15) 0%, rgba(4, 55, 76, 0) 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 201, 167, 0.1) 0%, rgba(0, 201, 167, 0) 25%),
+                radial-gradient(circle at 50% 80%, rgba(29, 185, 84, 0.1) 0%, rgba(29, 185, 84, 0) 30%);
+            background-color: #0D1E26;
+        }
+
+        .login-card {
+            background: rgba(18, 32, 46, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(78, 108, 128, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-field:focus {
+            box-shadow: 0 0 0 2px rgba(0, 201, 167, 0.5);
+            border-color: rgba(0, 201, 167, 0.5);
+        }
+
+        .turf-badge {
+            background: linear-gradient(to right, #04374C, #00C9A7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .turf-gradient {
+            background: linear-gradient(to right, #04374C, #04A0D3);
+        }
+
+        .animate-pulse-slow {
+            animation: pulse-slow 3s infinite;
+        }
+
+        @keyframes pulse-slow {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .divider {
+            position: relative;
+            text-align: center;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: calc(50% - 40px);
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(78, 108, 128, 0.5), transparent);
+        }
+
+        .divider::before {
+            left: 0;
+        }
+
+        .divider::after {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body class="login-bg min-h-screen flex flex-col items-center justify-center p-4 text-gray-200 font-sans">
+    <!-- Floating decorative elements -->
+    <div class="absolute top-10 left-10 w-64 h-64 rounded-full bg-primary/10 blur-2xl animate-pulse-slow"></div>
+    <div class="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-accent/10 blur-2xl animate-pulse-slow"></div>
+
+    <div class="z-10 w-full max-w-md">
+        <!-- Logo -->
+        <div class="flex justify-center mb-8">
+            <div class="flex flex-col items-center">
+                <img height="200" width="200" src="logo.png" alt="logo img">
+                <h1 class="text-4xl font-bold mt-3">Druk<span class="turf-badge">Turf</span></h1>
+                <p class="text-gray-400 mt-2">Football Turf Booking Platform</p>
+            </div>
+        </div>
+
+        <!-- Login Card -->
+        <div class="login-card rounded-2xl p-8">
+            <h2 class="text-2xl font-bold text-center mb-8">Sign in to your account</h2>
+
+            <form>
+                <div class="mb-5">
+                    <label for="email" class="block text-gray-400 mb-2">Email Address</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-envelope text-gray-500"></i>
+                        </div>
+                        <input type="email" id="email"
+                            class="input-field w-full bg-gray-800/70 border border-gray-700 rounded-lg py-3 pl-10 pr-4 focus:outline-none transition-all duration-200"
+                            placeholder="name@example.com" required>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label for="password" class="block text-gray-400 mb-2">Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-500"></i>
+                        </div>
+                        <input type="password" id="password"
+                            class="input-field w-full bg-gray-800/70 border border-gray-700 rounded-lg py-3 pl-10 pr-4 focus:outline-none transition-all duration-200"
+                            placeholder="••••••••" required>
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                            id="toggle-password">
+                            <i class="fas fa-eye text-gray-500 hover:text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center">
+                        <input id="remember" type="checkbox"
+                            class="w-4 h-4 text-accent bg-gray-800 border-gray-700 rounded focus:ring-accent focus:ring-offset-gray-900">
+                        <label for="remember" class="ml-2 text-gray-400 text-sm">Remember me</label>
+                    </div>
+                    <a href="#" class="text-sm text-secondary hover:text-primary transition-colors">Forgot password?</a>
+                </div>
+
+                <button type="submit"
+                    class="w-full turf-gradient text-white font-semibold rounded-lg py-3 px-4 hover:opacity-90 transition-all shadow-lg shadow-primary/20 mb-4">
+                    Sign in
+                </button>
+
+                <div class="divider text-gray-500 text-sm my-6">or continue with</div>
+
+                <div class="flex gap-3">
+                    <button type="button"
+                        class="flex-1 flex items-center justify-center bg-gray-800/70 border border-gray-700 rounded-lg py-2.5 hover:bg-gray-700/50 transition-colors">
+                        <i class="fab fa-google text-red-400"></i>
+                        <span class="ml-2">Google</span>
+                    </button>
+                    <button type="button"
+                        class="flex-1 flex items-center justify-center bg-gray-800/70 border border-gray-700 rounded-lg py-2.5 hover:bg-gray-700/50 transition-colors">
+                        <i class="fab fa-facebook text-blue-400"></i>
+                        <span class="ml-2">Facebook</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Sign up link -->
+        <div class="mt-8 text-center">
+            <p class="text-gray-400">
+                Don't have an account?
+                <a href="signup.html" class="text-secondary hover:text-primary font-medium ml-1 transition-colors">
+                    Sign up
+                </a>
+            </p>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-2 mt-8 text-center">
+            <div class="bg-dark/50 p-3 rounded-lg">
+                <div class="text-lg font-bold text-accent">18+</div>
+                <div class="text-xs text-gray-400">Venues Managed</div>
+            </div>
+            <div class="bg-dark/50 p-3 rounded-lg">
+                <div class="text-lg font-bold text-accent">500+</div>
+                <div class="text-xs text-gray-400">Active Bookings</div>
+            </div>
+            <div class="bg-dark/50 p-3 rounded-lg">
+                <div class="text-lg font-bold text-accent">90%</div>
+                <div class="text-xs text-gray-400">Satisfaction</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-6 text-gray-500 text-sm text-center">
+        © 2025 DrukTurf. All rights reserved. |
+        <a href="#" class="hover:text-gray-300 ml-1">Privacy Policy</a> |
+        <a href="#" class="hover:text-gray-300 ml-1">Terms of Service</a>
+    </footer>
+
+    <script>
+        // Password visibility toggle
+        const togglePassword = document.querySelector('#toggle-password');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.querySelector('i').classList.toggle('fa-eye');
+            this.querySelector('i').classList.toggle('fa-eye-slash');
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Simulate loading state
+            const button = this.querySelector('button[type="submit"]');
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+            button.disabled = true;
+
+            // Simulate API call
+            setTimeout(() => {
+                alert('Login successful! Redirecting to dashboard...');
+                location.href = "indexPage.html"
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>

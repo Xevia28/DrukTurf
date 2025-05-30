@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrukTurf - Contact Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+    <script src="tailwind.config.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A;
+            color: #E2E8F0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2304374c' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .contact-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(4, 55, 76, 0.2) 0%, rgba(15, 23, 42, 0.4) 100%);
+            border: 1px solid rgba(94, 234, 212, 0.2);
+        }
+
+        .input-field {
+            background-color: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(94, 234, 212, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-color: #06B6D4;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+        }
+
+        .glow-btn {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .glow-btn:hover {
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.8);
+        }
+
+        .nav-glow {
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .nav-glow:hover {
+            text-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
+        }
+
+        .contact-icon {
+            background: linear-gradient(135deg, #04374C, #0F172A);
+            border: 1px solid rgba(94, 234, 212, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.2);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 300px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #04374C, #0F172A);
+            position: relative;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(4, 55, 76, 0.7), rgba(15, 23, 42, 0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0F172A;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #04374C;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06B6D4;
+        }
+
+        /* Tabs styling */
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            position: relative;
+            border-radius: 0;
+            color: #94A3B8;
+            font-weight: 500;
+        }
+
+        .tab-button.active {
+            color: #E2E8F0;
+            border-bottom: 2px solid #06B6D4;
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #06B6D4, #10B981);
+            border-radius: 2px;
+        }
+
+        .ring-animate {
+            animation: pulse-slow 3s infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <img height="80" width="80" src="logo.png" alt="logo img">
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="indexPage.html"
+                                class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800">Home</a>
+                            <a href="turfsPage.html"
+                                class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800">Turfs</a>
+                            <a href="bookingsPage.html"
+                                class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800">Bookings</a>
+                            <a href="#"
+                                class="px-3 py-2 rounded-md text-sm font-medium text-white bg-primary">Contact</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-4 flex items-center md:ml-6">
+                        <a href="login.html">
+                            <button
+                                class="glow-btn px-4 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-r from-secondary to-accent">
+                                <i class="fas fa-user mr-2"></i>Sign In
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" id="mobile-menu-btn"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="indexPage.html"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Home</a>
+                <a href="turfsPage.html"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Turfs</a>
+                <a href="bookingsPage.html"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Bookings</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-primary">Contact</a>
+                <a href="login.html">
+                    <button
+                        class="mt-4 w-full glow-btn px-4 py-2 rounded-md text-base font-medium text-white bg-gradient-to-r from-secondary to-accent">
+                        Sign In
+                    </button>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative overflow-hidden bg-gradient-to-r from-primary to-dark">
+        <!-- <div class="absolute bottom-5 right-5 opacity-10">
+            <i class="fas fa-envelope text-[200px] animate-float"></i>
+        </div> -->
+        <div class="max-w-7xl mx-auto px-4 py-16 sm:py-20 sm:px-6 lg:px-8 relative">
+            <div class="text-center">
+                <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
+                    <span class="block">Get In Touch With</span>
+                    <span
+                        class="block text-transparent bg-clip-text bg-gradient-to-r from-secondary to-accent mt-2">DrukTurf
+                        Team</span>
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-300">
+                    Have questions, feedback, or need assistance? Our team is here to help you.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Left Column: Contact Form -->
+            <div>
+                <div class="contact-card rounded-2xl p-8">
+                    <h2 class="text-2xl font-bold text-white mb-6">
+                        <i class="fas fa-paper-plane mr-3 text-secondary"></i> Send us a message
+                    </h2>
+
+                    <form>
+                        <div class="mb-6">
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Your Name</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <i class="fas fa-user text-gray-500"></i>
+                                </div>
+                                <input type="text" id="name"
+                                    class="input-field w-full py-3 pl-10 pr-4 text-white rounded-lg"
+                                    placeholder="John Doe">
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email
+                                Address</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <i class="fas fa-envelope text-gray-500"></i>
+                                </div>
+                                <input type="email" id="email"
+                                    class="input-field w-full py-3 pl-10 pr-4 text-white rounded-lg"
+                                    placeholder="john@example.com">
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <i class="fas fa-tag text-gray-500"></i>
+                                </div>
+                                <input type="text" id="subject"
+                                    class="input-field w-full py-3 pl-10 pr-4 text-white rounded-lg"
+                                    placeholder="Booking inquiry">
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Your
+                                Message</label>
+                            <div class="relative">
+                                <div class="absolute top-3 left-3 pointer-events-none">
+                                    <i class="fas fa-comment text-gray-500"></i>
+                                </div>
+                                <textarea id="message" rows="5"
+                                    class="input-field w-full py-3 pl-10 pr-4 text-white rounded-lg"
+                                    placeholder="How can we help you?"></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit"
+                            class="glow-btn w-full bg-gradient-to-r from-secondary to-accent text-white font-medium py-3 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-paper-plane mr-3"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Column: Contact Info -->
+            <div>
+                <div class="contact-card rounded-2xl p-8 mb-8">
+                    <h2 class="text-2xl font-bold text-white mb-6">
+                        <i class="fas fa-info-circle mr-3 text-secondary"></i> Contact Information
+                    </h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="contact-icon rounded-xl p-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-blue-900 bg-opacity-50 flex items-center justify-center mb-4">
+                                <i class="fas fa-map-marker-alt text-blue-400 text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-white mb-1">Our Location</h3>
+                            <p class="text-gray-400">GCIT Kabesa, Thimphu, Bhutan</p>
+                        </div>
+
+                        <div class="contact-icon rounded-xl p-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-green-900 bg-opacity-50 flex items-center justify-center mb-4">
+                                <i class="fas fa-phone text-green-400 text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-white mb-1">Phone & WhatsApp</h3>
+                            <p class="text-gray-400">+975 17813212</p>
+                        </div>
+
+                        <div class="contact-icon rounded-xl p-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-cyan-900 bg-opacity-50 flex items-center justify-center mb-4">
+                                <i class="fas fa-envelope text-cyan-400 text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-white mb-1">Email Address</h3>
+                            <p class="text-gray-400">xeviabcd28@gmail.com</p>
+                        </div>
+
+                        <div class="contact-icon rounded-xl p-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-purple-900 bg-opacity-50 flex items-center justify-center mb-4">
+                                <i class="fas fa-clock text-purple-400 text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-white mb-1">Support Hours</h3>
+                            <p class="text-gray-400">Mon-Sat: 8am - 10pm</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Placeholder -->
+                <div class="contact-card rounded-2xl p-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-white">
+                            <i class="fas fa-map-marked-alt mr-2 text-secondary"></i> Find Our Office
+                        </h2>
+                        <button
+                            class="bg-gradient-to-r from-secondary to-accent text-white font-medium py-1 px-4 rounded-lg text-sm">
+                            Get Directions
+                        </button>
+                    </div>
+
+                    <div class="map-container">
+                        <div class="map-overlay">
+                            <i class="fas fa-map-marker-alt text-5xl text-secondary mb-4 animate-bounce"></i>
+                            <h3 class="text-xl font-bold mb-2">DrukTurf Headquarters</h3>
+                            <p class="text-gray-300">GCIT Kabesa, Thimphu, Bhutan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support Channels -->
+        <div class="mt-16">
+            <h2 class="text-3xl font-bold text-white text-center mb-12">Other Ways to Reach Us</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="contact-card rounded-2xl p-8 text-center">
+                    <div
+                        class="w-20 h-20 rounded-full bg-cyan-900 bg-opacity-30 flex items-center justify-center mx-auto mb-6 ring-4 ring-cyan-600 ring-opacity-30 ring-animate">
+                        <i class="fas fa-comments text-cyan-400 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Live Chat</h3>
+                    <p class="text-gray-400 mb-4">Chat with our support team in real-time</p>
+                    <button
+                        class="glow-btn w-full max-w-[200px] bg-gradient-to-r from-secondary to-accent text-white font-medium py-2 rounded-lg mx-auto">
+                        Start Chat
+                    </button>
+                </div>
+
+                <div class="contact-card rounded-2xl p-8 text-center">
+                    <div
+                        class="w-20 h-20 rounded-full bg-green-900 bg-opacity-30 flex items-center justify-center mx-auto mb-6 ring-4 ring-green-600 ring-opacity-30 ring-animate">
+                        <i class="fab fa-whatsapp text-green-400 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">WhatsApp</h3>
+                    <p class="text-gray-400 mb-4">Message us on WhatsApp for quick assistance</p>
+                    <button
+                        class="glow-btn w-full max-w-[200px] bg-gradient-to-r from-green-500 to-green-600 text-white font-medium py-2 rounded-lg mx-auto">
+                        Message Us
+                    </button>
+                </div>
+
+                <div class="contact-card rounded-2xl p-8 text-center">
+                    <div
+                        class="w-20 h-20 rounded-full bg-blue-900 bg-opacity-30 flex items-center justify-center mx-auto mb-6 ring-4 ring-blue-600 ring-opacity-30 ring-animate">
+                        <i class="fab fa-facebook-messenger text-blue-400 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Messenger</h3>
+                    <p class="text-gray-400 mb-4">Connect with us on Facebook Messenger</p>
+                    <button
+                        class="glow-btn w-full max-w-[200px] bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium py-2 rounded-lg mx-auto">
+                        Send Message
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mt-8">
+        <h2 class="text-3xl font-bold text-white text-center mb-12">Frequently Asked Questions</h2>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="contact-card rounded-2xl p-8">
+                <div class="flex items-start mb-4">
+                    <i class="fas fa-question-circle text-secondary mt-1 mr-4 text-xl"></i>
+                    <div>
+                        <h3 class="text-xl font-semibold text-white mb-2">How quickly do you respond to inquiries?</h3>
+                        <p class="text-gray-400">Our support team typically responds within 1-2 business hours during
+                            our operational hours. For urgent matters, we recommend using our live chat feature for
+                            immediate assistance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-card rounded-2xl p-8">
+                <div class="flex items-start mb-4">
+                    <i class="fas fa-question-circle text-secondary mt-1 mr-4 text-xl"></i>
+                    <div>
+                        <h3 class="text-xl font-semibold text-white mb-2">Can I make a booking over the phone?</h3>
+                        <p class="text-gray-400">Yes! You can call our booking hotline during business hours to make
+                            reservations. However, we recommend using our online platform for convenience and real-time
+                            availability.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-card rounded-2xl p-8">
+                <div class="flex items-start mb-4">
+                    <i class="fas fa-question-circle text-secondary mt-1 mr-4 text-xl"></i>
+                    <div>
+                        <h3 class="text-xl font-semibold text-white mb-2">What's your cancellation policy?</h3>
+                        <p class="text-gray-400">Cancellations made 24 hours prior to booking are eligible for full
+                            refund. Cancellations within 24 hours of the booking time are subject to a 50% fee. Please
+                            see our terms for details.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-card rounded-2xl p-8">
+                <div class="flex items-start mb-4">
+                    <i class="fas fa-question-circle text-secondary mt=1 mr-4 text-xl"></i>
+                    <div>
+                        <h3 class="text-xl font-semibold text-white mb-2">Do you offer group discounts?</h3>
+                        <p class="text-gray-400">Yes, we offer special discounts for group bookings of 10+ people.
+                            Contact our corporate team at corporate@drukturf.com to discuss special rates for your group
+                            or organization.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-12">
+            <button
+                class="bg-gray-800 hover:bg-gray-700 px-6 py-3 text-white font-medium rounded-lg transition flex items-center mx-auto">
+                <i class="fas fa-question-circle mr-3 text-secondary"></i> View All FAQs
+            </button>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+        <div class="contact-card rounded-2xl p-16 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-primary to-dark opacity-10"></div>
+            <div class="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-cyan-500 opacity-10"></div>
+            <div class="absolute -bottom-10 -left-10 w-60 h-60 rounded-full bg-blue-500 opacity-10"></div>
+
+            <div class="relative">
+                <h2 class="text-4xl font-bold text-white mb-4">Ready to make your next booking?</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-10">Join thousands of satisfied players who book
+                    with DrukTurf every week.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="turfsPage.html">
+                        <button
+                            class="glow-btn bg-gradient-to-r from-secondary to-accent text-white font-medium py-3 px-8 rounded-lg text-lg">
+                            Explore Turfs
+                        </button>
+                    </a>
+                    <a href="signup.html">
+                        <button
+                            class="bg-gray-800 hover:bg-gray-700 text-white font-medium py-3 px-8 rounded-lg text-lg border border-gray-700">
+                            View Pricing
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-1">
+                    <h3 class="text-2xl font-bold text-white">
+                        <span class="text-secondary">Turf</span>Zone
+                    </h3>
+                    <p class="mt-4 text-gray-400">
+                        Booking football turfs made simple and efficient for players and turf owners alike.
+                    </p>
+                    <div class="mt-4 flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-white">Quick Links</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="turfs.html" class="text-gray-400 hover:text-white">Turfs</a></li>
+                        <li><a href="bookings.html" class="text-gray-400 hover:text-white">Bookings</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQs</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-white">For Turf Owners</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="signup.html" class="text-gray-400 hover:text-white">List Your Turf</a></li>
+                        <li><a href="signup.html" class="text-gray-400 hover:text-white">Pricing</a></li>
+                        <li><a href="signup.html" class="text-gray-400 hover:text-white">Dashboard Demo</a></li>
+                        <li><a href="signup.html" class="text-gray-400 hover:text-white">Success Stories</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-white">Get In Touch</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-secondary mt-1 mr-2"></i>
+                            <span class="text-gray-400">GCIT Kabesa, Thimphu, Bhutan</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone text-secondary mr-2"></i>
+                            <span class="text-gray-400">+975 17813212</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-secondary mr-2"></i>
+                            <span class="text-gray-400">xeviabcd28@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between">
+                <p class="text-gray-400">© 2025 DrukTurf. All rights reserved.</p>
+                <div class="mt-4 md:mt-0 flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">Terms</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Privacy</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+
+            if (!menu.classList.contains('hidden')) {
+                menu.classList.add('block');
+            }
+        });
+
+        // Form submission
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+
+                // Simple validation
+                if (!name || !email || !message) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+
+                // Create a loading effect
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
+                submitBtn.disabled = true;
+
+                // Simulate API call
+                setTimeout(() => {
+                    // Reset button
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+
+                    // Show success message
+                    alert(`Thank you, ${name}! Your message has been sent.\nWe'll contact you at ${email} shortly.`);
+
+                    // Reset form
+                    contactForm.reset();
+                }, 1500);
+            });
+        }
+
+        // Contact icon animation
+        document.querySelectorAll('.contact-icon').forEach(icon => {
+            icon.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-5px)';
+            });
+
+            icon.addEventListener('mouseleave', function () {
+                this.style.transform = '';
+            });
+        });
+    </script>
+</body>
+
+</html>
