@@ -7,21 +7,8 @@
     <title>DrukTurf Admin - Booking Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary': '#04374C',
-                        'secondary': '#04A0D3',
-                        'accent': '#00C9A7',
-                        'dark': '#121826',
-                        'turf-green': '#1DB954'
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+    <script src="admin.tailwindconfig.js"></script>
     <style>
         .sidebar-hover:hover {
             background-color: rgba(4, 55, 76, 0.15);
@@ -85,7 +72,7 @@
             position: relative;
         }
 
-        .highlight-row::before {
+        /* .highlight-row::before {
             content: '';
             position: absolute;
             left: 0;
@@ -94,7 +81,7 @@
             width: 4px;
             background-color: #FFC145;
             border-radius: 0 4px 4px 0;
-        }
+        } */
     </style>
 </head>
 
@@ -119,9 +106,7 @@
             class="bg-dark w-64 min-h-screen hidden md:flex flex-col custom-scrollbar transition-all duration-300">
             <!-- Logo -->
             <div class="p-6 flex items-center space-x-3">
-                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                    <i class="fas fa-futbol text-xl"></i>
-                </div>
+                <img height="80" width="80" src="logo.png" alt="logo img">
                 <span class="font-bold text-xl">DrukTurf</span>
             </div>
 
@@ -129,37 +114,33 @@
             <nav class="flex-1 px-4 py-4">
                 <ul>
                     <li class="mb-2">
-                        <a href="user-management.html" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
+                        <a href="adminHome.html" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
                             <i class="fas fa-users mr-3"></i>
                             <span>User Management</span>
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
-                            <i class="fas fa-grass mr-3"></i>
+                        <a href="turfsAdmin.html" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
+                            <i class="fas fa-map mr-3"></i>
                             <span>Turf Management</span>
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover active-menu">
+                        <a href="bookingAdmin.html"
+                            class="flex items-center px-4 py-3 rounded-lg sidebar-hover active-menu">
                             <i class="fas fa-calendar-check mr-3"></i>
                             <span>Booking Management</span>
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
+                        <a href="reportsAdmin.html" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
                             <i class="fas fa-chart-bar mr-3"></i>
                             <span>Reports</span>
                         </a>
                     </li>
-                    <li class="mb-2">
-                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
-                            <i class="fas fa-cog mr-3"></i>
-                            <span>Settings</span>
-                        </a>
-                    </li>
                     <li class="mt-8 border-t border-gray-800 pt-4">
-                        <a href="#" class="flex items-center px-4 py-3 rounded-lg text-red-400 hover:bg-red-500/10">
+                        <a href="login.html"
+                            class="flex items-center px-4 py-3 rounded-lg text-red-400 hover:bg-red-500/10">
                             <i class="fas fa-sign-out-alt mr-3"></i>
                             <span>Logout</span>
                         </a>
@@ -175,8 +156,8 @@
                         <i class="fas fa-user text-white"></i>
                     </div>
                     <div>
-                        <div class="font-semibold">Booking Manager</div>
-                        <div class="text-sm text-gray-400">manager@turfpro.com</div>
+                        <div class="font-semibold">DrukTurf Admin</div>
+                        <div class="text-sm text-gray-400">admin@drukturf.com</div>
                     </div>
                 </div>
             </div>
@@ -262,7 +243,7 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-gray-400 text-sm">Revenue</p>
-                            <p class="text-2xl font-bold mt-1">$6,428</p>
+                            <p class="text-2xl font-bold mt-1">Nu.83,428</p>
                         </div>
                         <div
                             class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-purple-300 flex items-center justify-center">
@@ -293,11 +274,27 @@
                     <div>
                         <label class="block text-sm font-medium mb-1 text-gray-400">Turf Location</label>
                         <select class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 w-full md:w-44">
-                            <option value="">All Locations</option>
-                            <option value="downtown">Downtown</option>
-                            <option value="north">North District</option>
-                            <option value="south">South District</option>
-                            <option value="west">West District</option>
+                            <option value="">All Dzongkhags</option>
+                            <option value="Bumthang">Bumthang</option>
+                            <option value="Chhukha">Chhukha</option>
+                            <option value="Dagana">Dagana</option>
+                            <option value="Gasa">Gasa</option>
+                            <option value="Haa">Haa</option>
+                            <option value="Lhuentse">Lhuentse</option>
+                            <option value="Mongar">Mongar</option>
+                            <option value="Paro">Paro</option>
+                            <option value="Pemagatshel">Pemagatshel</option>
+                            <option value="Punakha">Punakha</option>
+                            <option value="Samdrup Jongkhar">Samdrup Jongkhar</option>
+                            <option value="Samtse">Samtse</option>
+                            <option value="Sarpang">Sarpang</option>
+                            <option value="Thimphu">Thimphu</option>
+                            <option value="Trashigang">Trashigang</option>
+                            <option value="Trashiyangtse">Trashiyangtse</option>
+                            <option value="Trongsa">Trongsa</option>
+                            <option value="Tsirang">Tsirang</option>
+                            <option value="Wangdue Phodrang">Wangdue Phodrang</option>
+                            <option value="Zhemgang">Zhemgang</option>
                         </select>
                     </div>
                     <div class="flex flex-col">
@@ -346,19 +343,21 @@
                                     <td class="px-4 py-4 text-sm font-medium">#BK-1289</td>
                                     <td class="px-4 py-4">
                                         <div class="flex items-center">
-                                            <img class="w-8 h-8 rounded-full object-cover"
-                                                src="https://randomuser.me/api/portraits/men/62.jpg" alt="">
+                                            <div
+                                                class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                                                <i class="fas fa-user text-white"></i>
+                                            </div>
                                             <div class="ml-3">
-                                                <div class="font-medium">Michael Chen</div>
-                                                <div class="text-gray-500 text-xs">michael@example.com</div>
+                                                <div class="font-medium">Jigme Namgyal</div>
+                                                <div class="text-gray-500 text-xs">jigme2004@gmail.com</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-4 py-4">
                                         <div>
-                                            <div class="font-medium">Victory Arena</div>
+                                            <div class="font-medium">Changjiji Turf</div>
                                             <div class="text-gray-500 text-xs flex items-center">
-                                                <i class="fas fa-map-marker-alt mr-1"></i> North District
+                                                <i class="fas fa-map-marker-alt mr-1"></i> Changjiji, Thimphu
                                             </div>
                                         </div>
                                     </td>
@@ -379,7 +378,7 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-4">
-                                        <div class="font-semibold">$64.00</div>
+                                        <div class="font-semibold">Nu.834.00</div>
                                     </td>
                                     <td class="px-4 py-4">
                                         <span
@@ -408,19 +407,21 @@
                                     <td class="px-4 py-4 text-sm font-medium">#BK-1287</td>
                                     <td class="px-4 py-4">
                                         <div class="flex items-center">
-                                            <img class="w-8 h-8 rounded-full object-cover"
-                                                src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
+                                            <div
+                                                class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                                                <i class="fas fa-user text-white"></i>
+                                            </div>
                                             <div class="ml-3">
-                                                <div class="font-medium">Sarah Johnson</div>
-                                                <div class="text-gray-500 text-xs">sarah@example.com</div>
+                                                <div class="font-medium">Tashi Wangchuk</div>
+                                                <div class="text-gray-500 text-xs">twang@gmail.com</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-4 py-4">
                                         <div>
-                                            <div class="font-medium">Century Park Turf</div>
+                                            <div class="font-medium">Changlimithang Turf</div>
                                             <div class="text-gray-500 text-xs flex items-center">
-                                                <i class="fas fa-map-marker-alt mr-1"></i> Downtown
+                                                <i class="fas fa-map-marker-alt mr-1"></i> Changlimithang, Thimphu
                                             </div>
                                         </div>
                                     </td>
@@ -441,7 +442,7 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-4">
-                                        <div class="font-semibold">$50.00</div>
+                                        <div class="font-semibold">Nu.780.00</div>
                                     </td>
                                     <td class="px-4 py-4">
                                         <span
@@ -466,19 +467,21 @@
                                     <td class="px-4 py-4 text-sm font-medium">#BK-1291</td>
                                     <td class="px-4 py-4">
                                         <div class="flex items-center">
-                                            <img class="w-8 h-8 rounded-full object-cover"
-                                                src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+                                            <div
+                                                class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                                                <i class="fas fa-user text-white"></i>
+                                            </div>
                                             <div class="ml-3">
-                                                <div class="font-medium">David Rodriguez</div>
-                                                <div class="text-gray-500 text-xs">david@example.com</div>
+                                                <div class="font-medium">Karma Phuntsho</div>
+                                                <div class="text-gray-500 text-xs">karma214@gmail.com</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-4 py-4">
                                         <div>
-                                            <div class="font-medium">Elite Stadium</div>
+                                            <div class="font-medium">Babena Football Stadium</div>
                                             <div class="text-gray-500 text-xs flex items-center">
-                                                <i class="fas fa-map-marker-alt mr-1"></i> South District
+                                                <i class="fas fa-map-marker-alt mr-1"></i> Babena, Thimphu
                                             </div>
                                         </div>
                                     </td>
@@ -499,7 +502,7 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-4">
-                                        <div class="font-semibold">$90.00</div>
+                                        <div class="font-semibold">Nu.1000.00</div>
                                     </td>
                                     <td class="px-4 py-4">
                                         <span
@@ -528,19 +531,21 @@
                                     <td class="px-4 py-4 text-sm font-medium">#BK-1275</td>
                                     <td class="px-4 py-4">
                                         <div class="flex items-center">
-                                            <img class="w-8 h-8 rounded-full object-cover"
-                                                src="https://randomuser.me/api/portraits/women/68.jpg" alt="">
+                                            <div
+                                                class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                                                <i class="fas fa-user text-white"></i>
+                                            </div>
                                             <div class="ml-3">
-                                                <div class="font-medium">Jennifer Kim</div>
-                                                <div class="text-gray-500 text-xs">jen@example.com</div>
+                                                <div class="font-medium">Dorji Thogmey</div>
+                                                <div class="text-gray-500 text-xs">thogs@gmail.com</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-4 py-4">
                                         <div>
-                                            <div class="font-medium">City Center Pitch</div>
+                                            <div class="font-medium">GCIT Ground</div>
                                             <div class="text-gray-500 text-xs flex items-center">
-                                                <i class="fas fa-map-marker-alt mr-1"></i> Downtown
+                                                <i class="fas fa-map-marker-alt mr-1"></i> GCIT, Kabesa
                                             </div>
                                         </div>
                                     </td>
@@ -561,7 +566,7 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-4">
-                                        <div class="font-semibold">$70.00</div>
+                                        <div class="font-semibold">Nu.950.00</div>
                                     </td>
                                     <td class="px-4 py-4">
                                         <span
@@ -591,16 +596,16 @@
                                                 <i class="fas fa-user text-white"></i>
                                             </div>
                                             <div class="ml-3">
-                                                <div class="font-medium">Robert Wilson</div>
-                                                <div class="text-gray-500 text-xs">robert@example.com</div>
+                                                <div class="font-medium">Pema</div>
+                                                <div class="text-gray-500 text-xs">justpema@gmail.com</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-4 py-4">
                                         <div>
-                                            <div class="font-medium">Sunset Pitch</div>
+                                            <div class="font-medium">YDF Pitch</div>
                                             <div class="text-gray-500 text-xs flex items-center">
-                                                <i class="fas fa-map-marker-alt mr-1"></i> West District
+                                                <i class="fas fa-map-marker-alt mr-1"></i> YDF Thimphu
                                             </div>
                                         </div>
                                     </td>
@@ -621,7 +626,7 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-4">
-                                        <div class="font-semibold">$56.00</div>
+                                        <div class="font-semibold">Nu.786.00</div>
                                     </td>
                                     <td class="px-4 py-4">
                                         <span
@@ -645,69 +650,6 @@
                                     </td>
                                 </tr>
 
-                                <!-- Booking 6 -->
-                                <tr class="table-row">
-                                    <td class="px-4 py-4 text-sm font-medium">#BK-1283</td>
-                                    <td class="px-4 py-4">
-                                        <div class="flex items-center">
-                                            <div
-                                                class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
-                                                <i class="fas fa-user text-white"></i>
-                                            </div>
-                                            <div class="ml-3">
-                                                <div class="font-medium">Thomas Martin</div>
-                                                <div class="text-gray-500 text-xs">thomas@example.com</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4">
-                                        <div>
-                                            <div class="font-medium">Victory Arena</div>
-                                            <div class="text-gray-500 text-xs flex items-center">
-                                                <i class="fas fa-map-marker-alt mr-1"></i> North District
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4">
-                                        <div class="flex flex-col gap-1">
-                                            <span
-                                                class="date-badge text-xs font-medium py-1 px-2 rounded-full inline-block w-fit">July
-                                                20, 2025</span>
-                                            <span
-                                                class="time-badge text-xs font-medium py-1 px-2 rounded-full inline-block w-fit">19:00
-                                                - 21:00</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4">
-                                        <div class="flex items-center">
-                                            <i class="fas fa-clock text-gray-500 mr-1"></i>
-                                            <span>2 hours</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4">
-                                        <div class="font-semibold">$64.00</div>
-                                    </td>
-                                    <td class="px-4 py-4">
-                                        <span
-                                            class="status-pending text-sm font-medium py-1 px-3 rounded-full">Pending</span>
-                                    </td>
-                                    <td class="px-4 py-4 text-right">
-                                        <div class="flex justify-end space-x-1">
-                                            <button
-                                                class="w-8 h-8 rounded-full bg-gray-700 hover:bg-secondary flex items-center justify-center">
-                                                <i class="fas fa-edit text-sm"></i>
-                                            </button>
-                                            <button
-                                                class="w-8 h-8 rounded-full bg-gray-700 hover:bg-accent flex items-center justify-center">
-                                                <i class="fas fa-check text-sm"></i>
-                                            </button>
-                                            <button
-                                                class="w-8 h-8 rounded-full bg-gray-700 hover:bg-red-500 flex items-center justify-center">
-                                                <i class="fas fa-times text-sm"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -715,7 +657,7 @@
                     <!-- Pagination -->
                     <div class="mt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                         <div class="text-gray-400 text-sm">
-                            Showing <span class="font-medium text-gray-300">6</span> of <span
+                            Showing <span class="font-medium text-gray-300">5</span> of <span
                                 class="font-medium text-gray-300">24</span> bookings
                         </div>
                         <div class="flex items-center space-x-2">
@@ -760,7 +702,7 @@
                     </li>
                     <li class="mb-2">
                         <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
-                            <i class="fas fa-grass mr-3"></i>
+                            <i class="fas fa-map mr-3"></i>
                             <span>Turf Management</span>
                         </a>
                     </li>

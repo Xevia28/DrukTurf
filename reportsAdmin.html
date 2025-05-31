@@ -7,22 +7,9 @@
     <title>DrukTurf Admin - Reports Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary': '#04374C',
-                        'secondary': '#04A0D3',
-                        'accent': '#00C9A7',
-                        'dark': '#121826',
-                        'turf-green': '#1DB954'
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="admin.tailwindconfig.js"></script>
     <style>
         .sidebar-hover:hover {
             background-color: rgba(4, 55, 76, 0.15);
@@ -93,9 +80,7 @@
             class="bg-dark w-64 min-h-screen hidden md:flex flex-col custom-scrollbar transition-all duration-300">
             <!-- Logo -->
             <div class="p-6 flex items-center space-x-3">
-                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                    <i class="fas fa-futbol text-xl"></i>
-                </div>
+                <img height="80" width="80" src="logo.png" alt="logo img">
                 <span class="font-bold text-xl">DrukTurf</span>
             </div>
 
@@ -103,44 +88,39 @@
             <nav class="flex-1 px-4 py-4">
                 <ul>
                     <li class="mb-2">
-                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
+                        <a href="adminHome.html" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
                             <i class="fas fa-users mr-3"></i>
                             <span>User Management</span>
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
-                            <i class="fas fa-grass mr-3"></i>
+                        <a href="turfsAdmin.html" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
+                            <i class="fas fa-map mr-3"></i>
                             <span>Turf Management</span>
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
+                        <a href="bookingAdmin.html" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
                             <i class="fas fa-calendar-check mr-3"></i>
                             <span>Booking Management</span>
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover active-menu">
+                        <a href="reportsAdmin.html"
+                            class="flex items-center px-4 py-3 rounded-lg sidebar-hover active-menu">
                             <i class="fas fa-chart-bar mr-3"></i>
                             <span>Reports</span>
                         </a>
                     </li>
-                    <li class="mb-2">
-                        <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
-                            <i class="fas fa-cog mr-3"></i>
-                            <span>Settings</span>
-                        </a>
-                    </li>
                     <li class="mt-8 border-t border-gray-800 pt-4">
-                        <a href="#" class="flex items-center px-4 py-3 rounded-lg text-red-400 hover:bg-red-500/10">
+                        <a href="login.html"
+                            class="flex items-center px-4 py-3 rounded-lg text-red-400 hover:bg-red-500/10">
                             <i class="fas fa-sign-out-alt mr-3"></i>
                             <span>Logout</span>
                         </a>
                     </li>
                 </ul>
             </nav>
-
             <!-- User Profile -->
             <div class="px-4 py-6 border-t border-gray-800">
                 <div class="flex items-center space-x-3">
@@ -149,8 +129,8 @@
                         <i class="fas fa-user text-white"></i>
                     </div>
                     <div>
-                        <div class="font-semibold">Analytics Manager</div>
-                        <div class="text-sm text-gray-400">analytics@turfpro.com</div>
+                        <div class="font-semibold">DrukTurf Admin</div>
+                        <div class="text-sm text-gray-400">admin@drukturf.com</div>
                     </div>
                 </div>
             </div>
@@ -198,21 +178,35 @@
                 <div>
                     <label class="block text-sm font-medium mb-1 text-gray-400">Turf Location</label>
                     <select class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 w-full md:w-44">
-                        <option value="">All Locations</option>
-                        <option value="downtown">Downtown</option>
-                        <option value="north">North District</option>
-                        <option value="south">South District</option>
-                        <option value="west">West District</option>
+                        <option value="">All Dzongkhags</option>
+                        <option value="Bumthang">Bumthang</option>
+                        <option value="Chhukha">Chhukha</option>
+                        <option value="Dagana">Dagana</option>
+                        <option value="Gasa">Gasa</option>
+                        <option value="Haa">Haa</option>
+                        <option value="Lhuentse">Lhuentse</option>
+                        <option value="Mongar">Mongar</option>
+                        <option value="Paro">Paro</option>
+                        <option value="Pemagatshel">Pemagatshel</option>
+                        <option value="Punakha">Punakha</option>
+                        <option value="Samdrup Jongkhar">Samdrup Jongkhar</option>
+                        <option value="Samtse">Samtse</option>
+                        <option value="Sarpang">Sarpang</option>
+                        <option value="Thimphu">Thimphu</option>
+                        <option value="Trashigang">Trashigang</option>
+                        <option value="Trashiyangtse">Trashiyangtse</option>
+                        <option value="Trongsa">Trongsa</option>
+                        <option value="Tsirang">Tsirang</option>
+                        <option value="Wangdue Phodrang">Wangdue Phodrang</option>
+                        <option value="Zhemgang">Zhemgang</option>
                     </select>
                 </div>
                 <div class="flex flex-col">
                     <label class="block text-sm font-medium mb-1 text-gray-400">Custom Date</label>
                     <div class="flex space-x-2">
-                        <input type="date" class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 w-full"
-                            disabled>
+                        <input type="date" class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 w-full">
                         <span class="self-center">to</span>
-                        <input type="date" class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 w-full"
-                            disabled>
+                        <input type="date" class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 w-full">
                     </div>
                 </div>
             </div>
@@ -260,7 +254,7 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-gray-400 text-sm">Avg. Booking Value</p>
-                            <p class="text-2xl font-bold mt-1">$82.50</p>
+                            <p class="text-2xl font-bold mt-1">Nu.1250</p>
                         </div>
                         <div
                             class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-yellow-300 flex items-center justify-center">
@@ -307,7 +301,9 @@
                                 class="text-xs px-3 py-1 rounded-full bg-gray-800 border border-gray-700">Yearly</button>
                         </div>
                     </div>
-                    <canvas id="revenueChart" height="120"></canvas>
+                    <div class="h-250px] w-full">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
                 </div>
 
                 <!-- Booking Stats -->
@@ -315,23 +311,29 @@
                     <div class="chart-card-header">
                         <h3 class="text-xl font-bold">Booking Status</h3>
                     </div>
-                    <canvas id="bookingPieChart"></canvas>
+                    <div class="h-[500px] w-full">
+                        <canvas id="bookingPieChart"></canvas>
+                    </div>
                 </div>
 
                 <!-- Revenue by Location -->
-                <div class="chart-container">
+                <!-- <div class="chart-container">
                     <div class="chart-card-header">
                         <h3 class="text-xl font-bold">Revenue by Location</h3>
                     </div>
-                    <canvas id="locationBarChart" height="300"></canvas>
-                </div>
+                    <div class="h-[500px] w-full">
+                        <canvas id="locationBarChart"></canvas>
+                    </div>
+                </div> -->
 
                 <!-- Peak Times -->
                 <div class="chart-container">
                     <div class="chart-card-header">
                         <h3 class="text-xl font-bold">Peak Booking Times</h3>
                     </div>
-                    <canvas id="peakTimeChart" height="250"></canvas>
+                    <div class="h-[300px] w-full">
+                        <canvas id="peakTimeChart"></canvas>
+                    </div>
                 </div>
 
                 <!-- Revenue by Turf -->
@@ -339,7 +341,9 @@
                     <div class="chart-card-header">
                         <h3 class="text-xl font-bold">Turf Performance</h3>
                     </div>
-                    <canvas id="turfRevenueChart" height="250"></canvas>
+                    <div class="h-[300px] w-full">
+                        <canvas id="turfRevenueChart"></canvas>
+                    </div>
                 </div>
 
                 <!-- Customer Stats -->
@@ -347,7 +351,9 @@
                     <div class="chart-card-header">
                         <h3 class="text-xl font-bold">Customer Segmentation</h3>
                     </div>
-                    <canvas id="customerChart" height="250"></canvas>
+                    <div class="h-[300px] w-full">
+                        <canvas id="customerChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -371,7 +377,7 @@
                     </li>
                     <li class="mb-2">
                         <a href="#" class="flex items-center px-4 py-3 rounded-lg sidebar-hover">
-                            <i class="fas fa-grass mr-3"></i>
+                            <i class="fas fa-map mr-3"></i>
                             <span>Turf Management</span>
                         </a>
                     </li>
@@ -439,7 +445,7 @@
                 data: {
                     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
                     datasets: [{
-                        label: 'Revenue ($)',
+                        label: 'Revenue (Nu.)',
                         data: [4850, 5600, 6200, 7300, 8900, 10700, 12500],
                         borderColor: '#04A0D3',
                         backgroundColor: 'rgba(4, 160, 211, 0.1)',
@@ -468,7 +474,7 @@
                             },
                             ticks: {
                                 callback: function (value) {
-                                    return '$' + value;
+                                    return 'Nu.' + value;
                                 },
                                 color: '#A0AEC0'
                             }
@@ -525,62 +531,62 @@
                 }
             });
 
-            // Revenue by Location Bar Chart
-            const locationBarCtx = document.getElementById('locationBarChart').getContext('2d');
-            const locationBarChart = new Chart(locationBarCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['Downtown', 'North District', 'South District', 'West District'],
-                    datasets: [{
-                        label: 'Revenue ($)',
-                        data: [12400, 8650, 5820, 3692],
-                        backgroundColor: [
-                            'rgba(29, 185, 84, 0.7)',
-                            'rgba(77, 171, 247, 0.7)',
-                            'rgba(156, 39, 176, 0.7)',
-                            'rgba(255, 152, 0, 0.7)'
-                        ],
-                        borderColor: [
-                            'rgba(29, 185, 84, 1)',
-                            'rgba(77, 171, 247, 1)',
-                            'rgba(156, 39, 176, 1)',
-                            'rgba(255, 152, 0, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    return '$' + value;
-                                },
-                                color: '#A0AEC0'
-                            }
-                        },
-                        x: {
-                            grid: {
-                                display: false
-                            },
-                            ticks: {
-                                color: '#A0AEC0'
-                            }
-                        }
-                    }
-                }
-            });
+            // // Revenue by Location Bar Chart
+            // const locationBarCtx = document.getElementById('locationBarChart').getContext('2d');
+            // const locationBarChart = new Chart(locationBarCtx, {
+            //     type: 'bar',
+            //     data: {
+            //         labels: ['Downtown', 'North District', 'South District', 'West District'],
+            //         datasets: [{
+            //             label: 'Revenue (Nu.)',
+            //             data: [12400, 8650, 5820, 3692],
+            //             backgroundColor: [
+            //                 'rgba(29, 185, 84, 0.7)',
+            //                 'rgba(77, 171, 247, 0.7)',
+            //                 'rgba(156, 39, 176, 0.7)',
+            //                 'rgba(255, 152, 0, 0.7)'
+            //             ],
+            //             borderColor: [
+            //                 'rgba(29, 185, 84, 1)',
+            //                 'rgba(77, 171, 247, 1)',
+            //                 'rgba(156, 39, 176, 1)',
+            //                 'rgba(255, 152, 0, 1)'
+            //             ],
+            //             borderWidth: 1
+            //         }]
+            //     },
+            //     options: {
+            //         responsive: true,
+            //         maintainAspectRatio: false,
+            //         plugins: {
+            //             legend: {
+            //                 display: false
+            //             }
+            //         },
+            //         scales: {
+            //             y: {
+            //                 beginAtZero: true,
+            //                 grid: {
+            //                     color: 'rgba(255, 255, 255, 0.1)'
+            //                 },
+            //                 ticks: {
+            //                     callback: function (value) {
+            //                         return 'Nu.' + value;
+            //                     },
+            //                     color: '#A0AEC0'
+            //                 }
+            //             },
+            //             x: {
+            //                 grid: {
+            //                     display: false
+            //                 },
+            //                 ticks: {
+            //                     color: '#A0AEC0'
+            //                 }
+            //             }
+            //         }
+            //     }
+            // });
 
             // Peak Time Chart
             const peakTimeCtx = document.getElementById('peakTimeChart').getContext('2d');
@@ -649,7 +655,7 @@
                     labels: ['Field A', 'Field B', 'Field C', 'Field D', 'Field E'],
                     datasets: [
                         {
-                            label: 'Revenue ($)',
+                            label: 'Revenue (Nu.)',
                             data: [5200, 4250, 6320, 3140, 4870],
                             backgroundColor: 'rgba(67, 56, 202, 0.7)',
                             borderColor: 'rgba(79, 70, 229, 1)',
@@ -681,7 +687,7 @@
                             },
                             ticks: {
                                 callback: function (value) {
-                                    return '$' + value;
+                                    return 'Nu.' + value;
                                 },
                                 color: '#A0AEC0'
                             }
@@ -763,6 +769,7 @@
                     }
                 }
             });
+
         });
     </script>
 </body>
